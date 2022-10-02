@@ -18,4 +18,6 @@ Note that the most optimal settings I used are:
 2) Epochs = 200
 3) Train-Test split: 80:20 ratio
 
-Note that because of vanishing gradients, the lambda seems to vanish quicker at any other value. I attribute this to the normalizing transformations, whereby at higher epochs, the further backpropagation seem to lead to the weights vanishing and intereferes with the calculation of the inverse during Levenberg-Marquardt descent. The next step would be to learn more about numerical methods and how to prevent this from happening again.
+Note that because of vanishing gradients, the lambda seems to vanish quicker at any other value. I attribute this to the normalizing transformations, whereby at higher epochs, the further backpropagation seem to lead to the weights vanishing and intereferes with the calculation of the inverse during Levenberg-Marquardt descent. For this project, I fitted a simple transformation during the testing phase in order to bring the values more in line with the real values. This is because the values were nearly correct, just that it was off by many factors. The next step would be to learn more about numerical methods and how to prevent this from happening again.
+
+Finally, I obtained a training loss of 0.014 and a test loss of 64 by using the mean squared error. 
