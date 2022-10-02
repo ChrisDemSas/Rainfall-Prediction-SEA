@@ -16,11 +16,20 @@ import matplotlib.pyplot as plt
 # Arguments
 FILENAME = 'rainfall_data.csv'
 TRAIN_TEST_PERCENT = 0.8
-LAMBDA = 100 # LM Algorithm Lambda: Default 100
-EPOCH = 200 # CHANGE LATER
+EPOCH = 1227 # CHANGE LATER
 INPUT = 2
 OUTPUT = 1
 torch.manual_seed(0) # Set the seed
+
+# SGD Optimizer Arguments
+SGD_LEARNING_RATE = 0.1
+
+
+# ADAM Optimizer Arguments
+ADAM_LEARNING_RATE = 0.1
+
+# Levenberg-Marquardt Optimizer Arguments
+LAMBDA = 100
 
 dates, train_dataloader, test_dataloader = process_dataset(FILENAME, INPUT, TRAIN_TEST_PERCENT)
 print("Data has been generated!")
@@ -29,6 +38,20 @@ loss_data = []
 epochs = [n for n in range(1, EPOCH + 1)]
 loss_function = nn.MSELoss()
 model = BackpropagationNN(INPUT, OUTPUT)
+
+def optimizer(optimizer_name):
+    """Take in an optimizer name and return an initialized optimizer."""
+    
+    if optimizer_name == 'Adam':
+        optimizer = torch.optim.Adam(model.parameters(), ADAM_LEARNING_RATE)
+    elif optimizer_name == 'Levenberg-Marquardt':
+        optimizer = LevenbergMarquardt(model.parameters(), LAMBDA)
+    elif optimizer_name == 'SGD':
+        optimizer = torch.optim.SGD(model.parameters(), SGD_LEARNING_RATE)
+    
+    return optimizer
+    
+optimizer = optimizer('Adam')
 
 def train(dataloader, epoch, lam):
     """Take in a training data and epoch number and return losses. """
@@ -44,7 +67,7 @@ def train(dataloader, epoch, lam):
         current_loss = 0
         
         for id_batch, (x_batch, y_batch) in enumerate(dataloader):
-            optimizer = LevenbergMarquardt(model.parameters(), current_lambda)
+            #optimizer = LevenbergMarquardt(model.parameters(), current_lambda)
             output = model(x_batch)
             loss = loss_function(output, y_batch)
             avg_loss += float(loss)
@@ -53,7 +76,7 @@ def train(dataloader, epoch, lam):
             optimizer.step()
             optimizer.zero_grad()
             counter += 1
-        print(f"Epoch: {i + 1}, Average Loss: {loss}, Lambda: {current_lambda}")
+        print(f"Epoch: {i + 1}, Average Loss: {loss}")
             
         loss_data.append(float(loss) / counter)
 
@@ -90,7 +113,7 @@ def test(dataloader):
 predictions, avg_loss = test(test_dataloader)
 print(f"Average Loss: {avg_loss}")
 
-returned_predictions = (abs(transform_back(predictions, FILENAME))[0]/100) + 100# Cheat hack 
+returned_predictions = (abs(transform_back(predictions, FILENAME))[0]) # Cheat hack 
 
 date = dates.tolist()
 
