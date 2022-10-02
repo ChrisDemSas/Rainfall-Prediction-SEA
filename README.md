@@ -18,4 +18,4 @@ Note that the most optimal settings I used are:
 2) Epochs = 200
 3) Train-Test split: 80:20 ratio
 
-Note that because of vanishing gradients, the lambda seems to vanish quicker at any other value. I attribute this to the normalizing transformations, whereby at higher epochs, the further backpropagation seem to lead to the weights vanishing. The next step would be to learn more about numerical methods and how to prevent this from happening again.
+Note that because of vanishing gradients, the lambda seems to vanish quicker at any other value. I attribute this to the normalizing transformations, whereby at higher epochs, the further backpropagation seem to lead to the weights vanishing and intereferes with the calculation of the inverse during Levenberg-Marquardt descent. The next step would be to learn more about numerical methods and how to prevent this from happening again.
