@@ -14,10 +14,21 @@ To use the code:
 
 Note that the most optimal settings I used are:
 
+LEVENBERG-MARQUARDT: Training Loss is 0.014, Testing Loss: 64
 1) Lambda = 100 (Original used 0.1)
 2) Epochs = 200
 3) Train-Test split: 80:20 ratio
 
+ADAM: Training Loss is 3.144 x 10^-7, Testing Loss: 0.00255
+1) Learning Rate = 0.1
+2) Epochs = 1227
+3) Train-Test split: 80:20 ratio
+
+SGD: Training Loss is 3.0 x 10^-3, Testing Loss: 0.003
+1) Learning Rate = 0.1
+2) Epochs = 26
+3) Train-Test split: 80:20 ratio
+
 Note that because of vanishing gradients, the lambda seems to vanish quicker at any other value. I attribute this to the normalizing transformations, whereby at higher epochs, the further backpropagation seem to lead to the weights vanishing and intereferes with the calculation of the inverse during Levenberg-Marquardt descent. For this project, I fitted a simple transformation during the testing phase in order to bring the values more in line with the real values. This is because the values were nearly correct, just that it was off by many factors. The next step would be to learn more about numerical methods and how to prevent this from happening again.
 
-Finally, I obtained a training loss of 0.014 and a test loss of 64 by using the mean squared error. 
+UPDATE: Added an investigation on using other optimizers. Currently, the best seems to be the ADAM optimizer which seems to have a very low training loss and testing loss.
