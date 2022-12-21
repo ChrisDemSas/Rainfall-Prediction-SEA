@@ -2,8 +2,7 @@
 A neural network prediction on the monthly rainfall of Singapore. 
 
 This project was inspired by the paper "Rainfall Monthly Prediction Based on Artificial Neural Network – A Case Study Tenggarong Station, 
-East Kalimantan – Indonesia" by Mislan et. al and contains an attempt to implement the neural network provided by them. There was a lot of problems with the Levenberg-Marquardt Descent in the project because of vanishing gradients. Since I currently lack the knowledge on how to resolve this issue, this implementation of the Levenberg-Marquardt descent represents my best effort 
-until I learn more about numerical methods. Otherwise, the project was extremely fun to do and I enjoyed a few successes on learning how to read papers, designing my own optimisers and writing a custom neural network.
+East Kalimantan – Indonesia" by Mislan et. al and contains an attempt to implement the neural network provided by them. There was a lot of problems with the Levenberg-Marquardt Descent in the project because of vanishing gradients. Otherwise, The project was extremely fun to do and I enjoyed a few successes on learning how to read papers, designing my own optimisers and writing a custom neural network.
 
 To use the code:
 
